@@ -1,6 +1,15 @@
-# New Project
+# FFmpeg-video-to-gif
+I recently saw a video (https://www.youtube.com/watch?v=-OTc0Ki7Sv0) that caught my attention very and i wanted to try it myself.
+So i went ahead and started this repo... i tried to make a website that converts a Video into a GIF i did this with the help of
+FFmpeg and React also i used snowpack as a modulebundler
 
-> ✨ Bootstrapped with Create Snowpack App (CSA).
+**Helpfull links:**
+
+> https://ffmpeg.org/ffmpeg.html 
+
+> https://superuser.com/questions/556029/how-do-i-convert-a-video-to-gif-using-ffmpeg-with-reasonable-quality
+
+> https://www.youtube.com/watch?v=-OTc0Ki7Sv0&t=262s
 
 ## Available Scripts
 
@@ -23,3 +32,5 @@ Your app is ready to be deployed!
 
 Launches the application test runner.
 Run with the `--watch` flag (`npm test -- --watch`) to run in interactive watch mode.
+
+> ✨ Bootstrapped with Create Snowpack App (CSA).
