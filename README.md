@@ -5,11 +5,13 @@ FFmpeg and React also i used snowpack as a modulebundler
 
 **Helpfull links:**
 
-> https://ffmpeg.org/ffmpeg.html 
+https://ffmpeg.org/ffmpeg.html 
 
-> https://superuser.com/questions/556029/how-do-i-convert-a-video-to-gif-using-ffmpeg-with-reasonable-quality
+https://superuser.com/questions/556029/how-do-i-convert-a-video-to-gif-using-ffmpeg-with-reasonable-quality
 
-> https://www.youtube.com/watch?v=-OTc0Ki7Sv0&t=262s
+https://www.youtube.com/watch?v=-OTc0Ki7Sv0&t=262s
+
+https://www.npmjs.com/package/@ffmpeg/ffmpeg
 
 ## Available Scripts
 
