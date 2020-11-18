@@ -1,40 +1,75 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
+const ffmpeg = createFFmpeg({ log: true });
 
-interface AppProps {}
+function App() {
+  const [isReady, setIsReady] = useState(false);
+  const [video, setVideo] = useState<File | null>();
+  const [gif, setGif] = useState('');
 
-function App({}: AppProps) {
-  // Create the count state.
-  const [count, setCount] = useState(0);
-  // Create the counter (+1 every second).
+  const load = async () => {
+    await ffmpeg.load();
+    setIsReady(true);
+  };
+
+  const writeFileToMemory = async () => {
+    if (video) {
+      await ffmpeg.FS('writeFile', video?.name, await fetchFile(video));
+    }
+  };
+
+  /**
+   * helpful Post: https://superuser.com/questions/556029/how-do-i-convert-a-video-to-gif-using-ffmpeg-with-reasonable-quality
+   */
+  const convertVideoToGif = async () => {
+    if (video) {
+      await ffmpeg.run(
+        '-i',
+        video?.name,
+        '-t',
+        '2.5',
+        '-ss',
+        '1.0',
+        '-f',
+        'gif',
+        'out.gif',
+      );
+    }
+  };
+
+  const getGifFromFileSystem = async () => {
+    const data = await ffmpeg.FS('readFile', 'out.gif');
+    return URL.createObjectURL(new Blob([data.buffer], { type: 'image/gif' }));
+  };
+
+  const onConvertToGif = async () => {
+    await writeFileToMemory();
+    await convertVideoToGif();
+    const url = await getGifFromFileSystem();
+    setGif(url);
+  };
+
   useEffect(() => {
-    const timer = setTimeout(() => setCount(count + 1), 1000);
-    return () => clearTimeout(timer);
-  }, [count, setCount]);
-  // Return the App component.
-  return (
+    load();
+  }, []);
+
+  return isReady ? (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <p>
-          Page has been open for <code>{count}</code> seconds.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
-      </header>
+      <h2>Video to Convert:</h2>
+      <input type="file" onChange={(e) => setVideo(e.target.files?.item(0))} />
+
+      {video && (
+        <video controls width="500px" src={URL.createObjectURL(video)} />
+      )}
+
+      <h3>Result:</h3>
+      <button onClick={onConvertToGif}>...Convert to GIF...</button>
+
+      {gif && <img src={gif} alt="" width="500px" />}
     </div>
+  ) : (
+    <p>isLoading...</p>
   );
 }
 
