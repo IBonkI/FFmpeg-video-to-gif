@@ -1,7 +1,7 @@
 # FFmpeg-video-to-gif
 I recently saw a video (https://www.youtube.com/watch?v=-OTc0Ki7Sv0) that caught my attention very and i wanted to try it myself.
 So i went ahead and started this repo... i tried to make a website that converts a Video into a GIF i did this with the help of
-FFmpeg and React also i used snowpack as a modulebundler
+FFmpeg (via WebAssembly) and React also i used snowpack as a modulebundler
 
 **Helpfull links:**
 
